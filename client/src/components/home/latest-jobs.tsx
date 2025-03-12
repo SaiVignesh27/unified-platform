@@ -90,7 +90,7 @@ export default function LatestJobs() {
             ))
           ) : jobs && jobs.length > 0 ? (
             jobs.map((job) => (
-              <motion.div key={job.id} variants={itemVariants}>
+              <motion.div key={job._id} variants={itemVariants}>
                 <JobCard job={job} />
               </motion.div>
             ))

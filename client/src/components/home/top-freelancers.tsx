@@ -85,7 +85,7 @@ export default function TopFreelancers() {
             ))
           ) : freelancers && freelancers.length > 0 ? (
             freelancers.map((freelancer) => (
-              <motion.div key={freelancer.id} variants={itemVariants}>
+              <motion.div key={freelancer._id} variants={itemVariants}>
                 <FreelancerCard freelancer={freelancer} />
               </motion.div>
             ))
