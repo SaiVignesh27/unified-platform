@@ -19,7 +19,7 @@ export default function JobCard({ job, showActions = true }: JobCardProps) {
   
   const applyMutation = useMutation({
     mutationFn: async () => {
-      const res = await apiRequest("POST", `/api/jobs/${job.id}/apply`, {
+      const res = await apiRequest("POST", `/api/jobs/${job._id}/apply`, {
         coverLetter: `I'm interested in the ${job.title} position.`
       });
       return await res.json();
@@ -54,7 +54,7 @@ export default function JobCard({ job, showActions = true }: JobCardProps) {
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-gray-900 hover:text-primary transition">
-              <Link href={`/jobs/${job.id}`}>{job.title}</Link>
+              <Link href={`/jobs/${job._id}`}>{job.title}</Link>
             </h3>
             <p className="text-sm text-gray-500 mt-1">{job.company} • {job.location || "Remote"}</p>
           </div>
@@ -100,7 +100,7 @@ export default function JobCard({ job, showActions = true }: JobCardProps) {
               {applyMutation.isPending ? "Applying..." : "Apply Now"}
             </Button>
           ) : (
-            <Link href={`/jobs/${job.id}`}>
+            <Link href={`/jobs/${job._id}`}>
               <Button className="mt-5 w-full bg-primary hover:bg-blue-600 text-white">
                 View Details
               </Button>
