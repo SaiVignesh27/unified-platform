@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 // Active listing interface
 interface IActiveListing {
-  id: number;
+  id: mongoose.Schema.Types.ObjectId | string;
   title: string;
   skillsRequired: string[];
   budget: string;
@@ -39,7 +39,7 @@ const RecruiterSchema: Schema = new Schema({
   bio: { type: String },
   activeListings: [
     {
-      id: Number,
+      id: { type: Schema.Types.ObjectId, ref: 'Job' },
       title: String,
       skillsRequired: [String],
       budget: String,

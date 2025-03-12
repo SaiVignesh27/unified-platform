@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 // Active project interface
 interface IActiveProject {
-  id: number;
+  id: mongoose.Schema.Types.ObjectId | string;
   title: string;
   client: string;
   dueDate: string;
@@ -12,7 +12,7 @@ interface IActiveProject {
 
 // Recommended job interface
 interface IRecommendedJob {
-  id: number;
+  id: mongoose.Schema.Types.ObjectId | string;
   title: string;
   company: string;
   salary: string;
@@ -50,7 +50,7 @@ const FreelancerSchema: Schema = new Schema({
   hoursWorked: { type: Number, default: 0 },
   activeProjects: [
     {
-      id: Number,
+      id: { type: Schema.Types.ObjectId, ref: 'Job' },
       title: String,
       client: String,
       dueDate: String,
@@ -60,7 +60,7 @@ const FreelancerSchema: Schema = new Schema({
   ],
   recommendedJobs: [
     {
-      id: Number,
+      id: { type: Schema.Types.ObjectId, ref: 'Job' },
       title: String,
       company: String,
       salary: String,
