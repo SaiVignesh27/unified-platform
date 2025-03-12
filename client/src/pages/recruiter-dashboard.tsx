@@ -24,6 +24,16 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 
+// Custom hook to get applications for a specific job
+// Defined outside the component to follow React hooks rules
+function useJobApplications(jobId: string) {
+  return useQuery({
+    queryKey: [`/api/jobs/${jobId}/applications`],
+    enabled: !!jobId,
+    refetchOnWindowFocus: false,
+  });
+}
+
 export default function RecruiterDashboard() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
@@ -100,15 +110,6 @@ export default function RecruiterDashboard() {
       });
     },
   });
-
-  // Custom hook to get applications for a specific job
-  const useJobApplications = (jobId: string) => {
-    return useQuery({
-      queryKey: [`/api/jobs/${jobId}/applications`],
-      enabled: !!jobId,
-      refetchOnWindowFocus: false,
-    });
-  };
 
   return (
     <>
