@@ -24,16 +24,6 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 
-// Custom hook to get applications for a specific job
-// Defined outside the component to follow React hooks rules
-function useJobApplications(jobId: string) {
-  return useQuery({
-    queryKey: [`/api/jobs/${jobId}/applications`],
-    enabled: !!jobId,
-    refetchOnWindowFocus: false,
-  });
-}
-
 export default function RecruiterDashboard() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
@@ -53,6 +43,12 @@ export default function RecruiterDashboard() {
   // Get dashboard stats
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["/api/recruiters/dashboard/stats"],
+    refetchOnWindowFocus: false,
+  });
+  
+  // Get all applications
+  const { data: allApplications, isLoading: applicationsLoading } = useQuery({
+    queryKey: ["/api/jobs/applications"],
     refetchOnWindowFocus: false,
   });
 
@@ -353,8 +349,8 @@ export default function RecruiterDashboard() {
                   ) : jobs && jobs.length > 0 ? (
                     <div className="space-y-8">
                       {jobs.filter(job => job.applications?.length > 0).map((job) => {
-                        // Using the job applications hook inside the map function is safe
-                        const { data: applications, isLoading } = useJobApplications(job._id);
+                        // Filter applications for current job
+                        const jobApplications = (allApplications || []).filter(app => app.jobId === job._id || app.jobId?._id === job._id);
                         
                         return (
                           <div key={job._id}>
@@ -362,14 +358,14 @@ export default function RecruiterDashboard() {
                               {job.title} ({job.applications?.length} applications)
                             </h3>
                             
-                            {isLoading ? (
+                            {applicationsLoading ? (
                               <div className="space-y-4">
                                 <Skeleton className="h-24 w-full" />
                                 <Skeleton className="h-24 w-full" />
                               </div>
-                            ) : applications && applications.length > 0 ? (
+                            ) : jobApplications.length > 0 ? (
                               <div className="space-y-4">
-                                {applications.map((application) => (
+                                {jobApplications.map((application) => (
                                   <div
                                     key={application._id}
                                     className="border border-gray-200 rounded-lg p-4"

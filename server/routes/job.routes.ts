@@ -265,6 +265,26 @@ router.post('/:id/apply', isAuthenticated, isFreelancer, async (req, res) => {
   }
 });
 
+// Get all applications (recruiters only - returns all applications for jobs posted by the recruiter)
+router.get('/applications', isAuthenticated, isRecruiter, async (req, res) => {
+  try {
+    // Find all jobs posted by this recruiter
+    const recruiterJobs = await Job.find({ recruiterId: req.user.id });
+    const jobIds = recruiterJobs.map(job => job._id);
+    
+    // Get all applications for these jobs
+    const applications = await Application.find({ jobId: { $in: jobIds } })
+      .populate({
+        path: 'freelancerId',
+        select: 'name email skills rating bio location'
+      });
+
+    res.status(200).json(applications);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
 // Get applications for a job (recruiters only)
 router.get('/:id/applications', isAuthenticated, isRecruiter, async (req, res) => {
   try {
