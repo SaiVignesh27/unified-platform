@@ -101,15 +101,13 @@ export default function RecruiterDashboard() {
     },
   });
 
-  // Function to get applications for a specific job
-  const getJobApplications = (jobId: string) => {
-    const { data: applications, isLoading } = useQuery({
+  // Custom hook to get applications for a specific job
+  const useJobApplications = (jobId: string) => {
+    return useQuery({
       queryKey: [`/api/jobs/${jobId}/applications`],
       enabled: !!jobId,
       refetchOnWindowFocus: false,
     });
-
-    return { applications, isLoading };
   };
 
   return (
@@ -354,7 +352,8 @@ export default function RecruiterDashboard() {
                   ) : jobs && jobs.length > 0 ? (
                     <div className="space-y-8">
                       {jobs.filter(job => job.applications?.length > 0).map((job) => {
-                        const { applications, isLoading } = getJobApplications(job._id);
+                        // Using the job applications hook inside the map function is safe
+                        const { data: applications, isLoading } = useJobApplications(job._id);
                         
                         return (
                           <div key={job._id}>
