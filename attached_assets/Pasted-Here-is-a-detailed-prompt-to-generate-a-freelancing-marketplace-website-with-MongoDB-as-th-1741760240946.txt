@@ -1,0 +1,198 @@
+Here is a detailed **prompt** to generate a **freelancing marketplace website** with **MongoDB as the database**, **React.js (JSX only)** for frontend, and **Node.js + Express.js** for backend. It includes **authentication, job posting, hiring system, dashboards, CRUD operations, and search functionalities**.  
+
+---
+
+### **💡 Prompt: Create a Full-Stack Freelance Marketplace Website (React.js, Node.js, MongoDB)**  
+
+**Build a modern, fully responsive freelance marketplace platform** where **freelancers** can showcase their skills and apply for jobs, while **recruiters** can post job listings and hire freelancers.  
+
+---
+
+## **🌟 Core Features**  
+
+### **🔹 1️⃣ User Authentication (Plain Text Login/Signup)**
+✅ **Signup & Login based on role (Freelancer/Recruiter)**  
+✅ **MongoDB stores user credentials with plain text passwords** (For test purposes)  
+✅ **User roles & session management (JWT optional in future)**  
+✅ **Error handling for incorrect credentials**  
+
+---
+
+### **🔹 2️⃣ Landing Page with Navigation & UI Animations**  
+✅ **Modern, animated landing page with:**  
+   - Hero Section (Showcasing platform benefits)  
+   - How It Works (Steps for freelancers & recruiters)  
+   - Job Listings Preview (Latest jobs posted by recruiters)  
+   - Freelancer Highlights (Top-rated freelancers available for hire)  
+   - Testimonials & Reviews (Client and freelancer success stories)  
+✅ **Navbar with authentication status:**  
+   - If logged in → Show profile name, dashboard, and logout button  
+   - If not logged in → Show login & signup buttons  
+✅ **Smooth page transitions using Framer Motion**  
+✅ **Mobile-responsive UI with Tailwind CSS**  
+
+---
+
+### **🔹 3️⃣ Profile Dashboards (Freelancer & Recruiter)**  
+#### **Freelancer Dashboard**  
+✅ View **profile details** (Name, bio, location, skills, experience)  
+✅ Track **job applications** (Pending, Accepted, Rejected)  
+✅ Manage **active projects** (Show progress, deadlines)  
+✅ View **earnings, hours worked, and statistics**  
+✅ AI-Recommended Jobs **(Placeholder for AI phase)**  
+
+#### **Recruiter Dashboard**  
+✅ View **posted job listings** (Add/Edit/Delete options)  
+✅ Track **freelancer applications** (Shortlist, reject, or hire)  
+✅ Review **hired freelancers & their progress**  
+✅ Manage **company profile & hiring statistics**  
+
+---
+
+### **🔹 4️⃣ Job Posting & Hiring System**  
+✅ **Recruiters can create job listings**  
+   - Title, Description, Skills Required, Budget, Deadline  
+   - View & edit posted jobs  
+✅ **Freelancers can browse and apply to jobs**  
+   - Apply with a cover letter, attach portfolio  
+   - Track application status (Pending, Accepted, Rejected)  
+✅ **Freelancers can post their service offers (Gig-style feature)**  
+   - Recruiters can browse & directly hire freelancers  
+
+---
+
+### **🔹 5️⃣ Job Listings & Search Functionality**  
+✅ **Home page & dashboard will display job postings**  
+✅ **Search & Filter options for:**  
+   - By skills, location, budget, experience level  
+✅ **Job cards with key details:**  
+   - Job Title, Company, Required Skills, Budget, Deadline, Apply Button  
+✅ **Pagination for job listings**  
+
+---
+
+### **🔹 6️⃣ Profile Customization (Add/Edit Fields in Dashboard)**  
+✅ Freelancers can update **bio, skills, portfolio, earnings, projects, and hours worked**  
+✅ Recruiters can update **company details, job postings, and hiring statistics**  
+✅ Profile details stored in **MongoDB**  
+
+---
+
+## **🛠️ Tech Stack**
+✅ **Frontend:** React.js (JSX only), Tailwind CSS, Framer Motion  
+✅ **Backend:** Node.js, Express.js  
+✅ **Database:** MongoDB (Mongoose Atlas)  
+✅ **Authentication:** Plain text login and signup (For testing)  
+✅ **API Testing:** Postman  
+
+---
+
+## **📌 MongoDB Schema for Users (Freelancers & Recruiters)**
+### **🔹 Freelancer Collection (`freelancers`)**
+```json
+{
+  "_id": "ObjectId",
+  "name": "John Doe",
+  "email": "johndoe@gmail.com",
+  "password": "user123",
+  "role": "freelancer",
+  "location": "New York, USA",
+  "bio": "Web developer with 5+ years experience.",
+  "skills": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+  "rating": 4.9,
+  "totalEarnings": "5000 USD",
+  "hoursWorked": 120,
+  "activeProjects": [
+    {
+      "id": 1,
+      "title": "E-commerce Website",
+      "client": "TechCorp",
+      "dueDate": "2024-03-25",
+      "status": "In Progress",
+      "progress": 58
+    }
+  ],
+  "recommendedJobs": [
+    {
+      "id": 1,
+      "title": "Senior React Developer",
+      "company": "InnovateHub",
+      "salary": "₹5000-7000/hr",
+      "match": "95%",
+      "skills": ["React", "TypeScript", "Node.js"]
+    }
+  ]
+}
+```
+
+---
+
+### **🔹 Recruiter Collection (`recruiters`)**
+```json
+{
+  "_id": "ObjectId",
+  "name": "Alice Smith",
+  "email": "alice@company.com",
+  "password": "recruiter123",
+  "role": "recruiter",
+  "company": "TechCorp",
+  "location": "San Francisco, USA",
+  "totalListings": 5,
+  "successfulHires": 3,
+  "experience": "10+ years in recruitment",
+  "bio": "Helping companies find the best talent",
+  "activeListings": [
+    {
+      "id": 1,
+      "title": "Full-Stack Developer",
+      "skillsRequired": ["React", "Node.js", "MongoDB"],
+      "budget": "$5000",
+      "deadline": "2024-04-10"
+    }
+  ],
+  "topCandidates": []
+}
+```
+
+---
+
+## **📌 CRUD Operations (MongoDB + Node.js API)**
+✅ **Create User (Signup API) - `/signup`**  
+✅ **Login API - `/login`**  
+✅ **Get User Details - `/user/:email`**  
+✅ **Create Job Post - `/jobs`**  
+✅ **Get Job Listings - `/jobs`**  
+✅ **Apply for Job - `/apply`**  
+✅ **Update Freelancer Profile - `/freelancers/:id`**  
+✅ **Update Recruiter Profile - `/recruiters/:id`**  
+✅ **Delete Job Posting - `/jobs/:id`**  
+✅ **Delete User Account - `/user/:id`**  
+
+---
+
+## **🚀 Expected Deliverables**
+1️⃣ **Landing Page** with **Login/Signup functionality**  
+2️⃣ **Freelancer & Recruiter Dashboards**  
+3️⃣ **Job posting & hiring system**  
+4️⃣ **Profile management for users (CRUD operations)**  
+5️⃣ **Search & filter functionality for job listings**  
+6️⃣ **Fully responsive UI with modern animations**  
+
+---
+
+## **🔗 MongoDB Connection**
+- MongoDB Atlas URL:  
+```bash
+mongodb+srv://kadirivignesh2005:sai12345@cluster0.s7qw2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+```
+
+---
+
+### **🎯 Goal:**  
+💡 **Phase 1 delivers a fully functional freelancing platform with authentication, dashboards, job postings, and MongoDB as the backend.**  
+💡 **Phase 2 will focus on AI-based automation for freelancer-recruiter matching.**  
+💡 **Phase 3 will introduce blockchain payments for secure transactions.**  
+
+---
+
+🔥 **This prompt will generate a complete freelance marketplace website with MongoDB as the backend, React.js (JSX only) for frontend, and modern animations for UI!** 🚀
