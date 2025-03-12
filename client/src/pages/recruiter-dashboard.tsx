@@ -48,7 +48,7 @@ export default function RecruiterDashboard() {
   
   // Get all applications
   const { data: allApplications, isLoading: applicationsLoading } = useQuery({
-    queryKey: ["/api/jobs/applications"],
+    queryKey: ["/api/jobs/all-applications"],
     refetchOnWindowFocus: false,
   });
 
