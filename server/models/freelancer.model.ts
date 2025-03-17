@@ -46,7 +46,7 @@ const FreelancerSchema: Schema = new Schema({
   bio: { type: String },
   skills: [{ type: String }],
   rating: { type: Number, default: 0 },
-  totalEarnings: { type: String, default: '0 USD' },
+  totalEarnings: { type: String, default: '0 INR' },
   hoursWorked: { type: Number, default: 0 },
   activeProjects: [
     {
