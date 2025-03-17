@@ -4,12 +4,12 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-  "dev": "concurrently \"tsx server/index.ts\" \"npm run dev --prefix client\"",
-  "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
-  "start": "concurrently \"cross-env NODE_ENV=production node dist/index.js\" \"npm run start --prefix client\"",
-  "check": "tsc",
-  "db:push": "drizzle-kit push"
-},
+    "dev": "concurrently \"tsx server/index.ts\" \"npm run dev --prefix client\"",
+    "build": "vite build && esbuild client/index.html --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "start": "concurrently \"cross-env NODE_ENV=production node dist/index.js\" \"npm run start --prefix client\"",
+    "check": "tsc",
+    "db:push": "drizzle-kit push"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@jridgewell/trace-mapping": "^0.3.25",
